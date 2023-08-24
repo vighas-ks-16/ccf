@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Consumption - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+    header{
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .calculator {
+      width: 400px;
+      margin: 0 auto;
+      margin-bottom: 100;
+      height: fit-content;
+      margin-right: -40%;
+      width: 90%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #options-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f5f5f5;
+      color: #000;
+    }
+
+    .option:hover {
+      background-color: #e0e0e0;
+    }
+
+    .option.selected {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .next-btn {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <header>
+      <h1>Carbon Footprint Calculator</h1>
+    </header>
+  </center>
+  <main>
+      <section class="calculator">
+        <h2>Water Consumption</h2>
+        <form id="water-consumption-form">
+          <label for="water-usage">Select your washing machine usage per week:</label><br><br>
+          <div id="options-container">
+            <div class="option" data-value="3">More than 9 times</div>
+            <div class="option" data-value="2">4 to 9 times</div>
+            <div class="option" data-value="1">1 to 3 times</div>
+          </div>
+          <button type="submit" class="next-btn">Next</button>
+        </form>
+      </section>
+
+      <div class="wat">
+        <img src="../images/water.png">
+      </div>
+  </main>
+  <!-- <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer> -->
+  <script>
+    const options = document.getElementsByClassName('option');
+
+    for (const option of options) {
+      option.addEventListener('click', function () {
+        selectOption(option);
+      });
+    }
+
+    document.getElementById('water-consumption-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selectedOption = document.querySelector('.option.selected');
+      
+      if (selectedOption === null) {
+        alert('Please select your water consumption.');
+      } else {
+        const selectedValue = selectedOption.getAttribute('data-value');
+        localStorage.setItem('waterConsumption', selectedValue);
+        window.location.href = 'number_of_household_purchases.html';
+      }
+    });
+
+    function selectOption(selectedOption) {
+      const value = selectedOption.getAttribute('data-value');
+      localStorage.setItem('waterConsumption', value);
+      highlightSelectedOption(selectedOption);
+    }
+
+    function highlightSelectedOption(selectedOption) {
+      for (const option of options) {
+        option.classList.remove('selected');
+      }
+      selectedOption.classList.add('selected');
+    }
+
+    // On page load, check if a selection was made and highlight it
+    window.addEventListener('DOMContentLoaded', function () {
+      const selectedValue = localStorage.getItem('waterConsumption');
+      if (selectedValue) {
+        options.forEach(option => {
+          if (option.getAttribute('data-value') === selectedValue) {
+            option.classList.add('selected');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Consumption - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <center>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+</center>
+  <main>
+    <center>
+    <section class="calculator">
+      <h2>Water Consumption</h2>
+      <form id="water-consumption-form">
+        <label for="water-usage">Select your washing machine usage per week:</label><br><br>
+        <select id="water-usage" required>
+          <option value="3">More than 9 times</option>
+          <option value="2">4 to 9 times</option>
+          <option value="1">1 to 3 times</option>
+        </select>
+        <button type="submit" class="next-btn">Next</button>
+      </form></center>
+      
+      <center><div class="wat">
+        <img src="water.png" width="80%">
+      </div></center>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    document.getElementById('water-consumption-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const selectedValue = parseInt(document.getElementById('water-usage').value, 10);
+  localStorage.setItem('waterConsumption', selectedValue);
+  window.location.href = 'number_of_household_purchases.html';
+});
+  </script>
+</body>
+</html> -->

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Choices - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #007bff; /* Blue color for header and footer */
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+
+    header{
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .calculator {
+      width: 400px;
+      margin: 0 auto;
+      margin-bottom: 100;
+      height: fit-content;
+      margin-right: -40%;
+      width: 90%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #options-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f5f5f5; /* Set the background color for all options */
+      color: #000; /* Set the text color for all options */
+    }
+
+    .option:hover {
+      background-color: #e0e0e0; /* Change the background color on hover */
+    }
+
+    .option.selected {
+      background-color: #007bff; /* Blue color for selected option */
+      color: #fff; /* White text for selected option */
+    }
+
+    .next-btn {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .foo {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <header>
+      <h1>Carbon Footprint Calculator</h1>
+    </header>
+  </center>
+  <main>
+      <section class="calculator">
+        <h2>Food Choices</h2>
+        <form id="food-choices-form">
+          <label for="food-choices">Select your Food Choices:</label>
+          <div id="options-container">
+            <div class="option" data-value="12">Prepacked food</div>
+            <div class="option" data-value="10">Domestic meat</div>
+            <div class="option" data-value="4">Vegetarian</div>
+          </div>
+          <button type="submit" class="next-btn">Next</button>
+        </form>
+      </section>
+    
+      <div class="foo">
+        <img src="../images/food.png">
+      </div>
+  
+  </main>
+  
+  <!-- <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer> -->
+  
+  <script>
+    const options = document.querySelectorAll('.option');
+
+    options.forEach(option => {
+      option.addEventListener('click', function () {
+        toggleOption(option);
+      });
+    });
+
+    document.getElementById('food-choices-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selectedOption = document.querySelector('.option.selected');
+      
+      if (selectedOption === null) {
+        alert('Please select your food choice before proceeding.');
+      } else {
+        const selectedValue = selectedOption.getAttribute('data-value');
+        localStorage.setItem('foodChoices', selectedValue);
+        window.location.href = 'water_consumption.html';
+      }
+    });
+
+    function toggleOption(option) {
+      options.forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+    }
+  </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Choices - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <center>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+</center>
+  <main>
+    <center><section class="calculator">
+      <h2>Food Choices</h2>
+      <form id="food-choices-form">
+        <label for="food-choices">Select your Food Choices:</label><br><br>
+        <select id="food-choices" required>
+          <option value="12">Prepacked food</option>
+          <option value="10">Domestic meat</option>
+          <option value="4">Vegetarian</option>
+        </select>
+        <button type="submit" class="next-btn">Next</button>
+      </form></center>
+
+      <center><div class="foo">
+        <img src="food.png" width="80%">
+      </div></center>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer>
+  <script>
+    document.getElementById('food-choices-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const selectedValue = parseInt(document.getElementById('food-choices').value, 10);
+  localStorage.setItem('foodChoices', selectedValue);
+  window.location.href = 'water_consumption.html';
+});
+  </script>
+</body>
+</html> -->

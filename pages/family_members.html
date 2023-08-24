@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Members - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="../styles.css"> 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #007bff; /* Blue color for header and footer */
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+
+    header{
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .calculator {
+      width: 400px;
+      margin: 0 auto;
+      margin-bottom: 100;
+      height: fit-content;
+      margin-right: -40%;
+      width: 90%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #options-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f5f5f5; /* Set the background color for all options */
+      color: #000; /* Set the text color for all options */
+    }
+
+    .option:hover {
+      background-color: #e0e0e0; /* Change the background color on hover */
+    }
+
+    .option.selected {
+      background-color: #007bff; /* Blue color for selected option */
+      color: #fff; /* White text for selected option */
+    }
+
+    .next-btn {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+  <main>
+    <section class="calculator">
+      <h2>Number of Family Members</h2>
+      <form id="family-members-form">
+        <label for="family-members">Select the number of family members:</label>
+        <div id="options-container">
+          <div class="option" data-value="14">1 person</div>
+          <div class="option" data-value="12">2 people</div>
+          <div class="option" data-value="10">3 people</div>
+          <div class="option" data-value="8">4 people</div>
+          <div class="option" data-value="6">5 people</div>
+          <div class="option" data-value="4">More than 5 people</div>
+        </div>
+        <button type="submit" class="next-btn">Next</button>
+      </form>
+    </section>
+    <div class="fam">
+      <img src="../images/fam.png">
+    </div>
+  </main>
+  <script>
+    const options = document.querySelectorAll('.option');
+    const nextButton = document.querySelector('.next-btn');
+  
+    options.forEach(option => {
+      option.addEventListener('click', function () {
+        toggleOption(option);
+      });
+    });
+  
+    document.getElementById('family-members-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selectedOption = document.querySelector('.option.selected');
+      
+      if (selectedOption === null) {
+        alert('Please select the number of family members before proceeding.');
+      } else {
+        const selectedValue = selectedOption.getAttribute('data-value');
+        localStorage.setItem('familyMembers', selectedValue);
+        window.location.href = 'size_of_home.html';
+      }
+    });
+  
+    function toggleOption(option) {
+      options.forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+    }
+  </script>
+</body>
+</html>

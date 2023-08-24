@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number of Household Purchases - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+    header{
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .calculator {
+      width: 400px;
+      margin: 0 auto;
+      margin-bottom: 100;
+      height: fit-content;
+      margin-right: -40%;
+      width: 90%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #options-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f5f5f5;
+      color: #000;
+    }
+
+    .option:hover {
+      background-color: #e0e0e0;
+    }
+
+    .option.selected {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .next-btn {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <header>
+      <h1>Carbon Footprint Calculator</h1>
+    </header>
+  </center>
+  <main>
+      <section class="calculator">
+        <h2>Number of Household Purchases</h2>
+        <form id="household-purchases-form">
+          <label for="household-purchases">Select the number of household purchases per year:</label><br><br>
+          <div id="options-container">
+            <div class="option" data-value="10">More than 7 new items</div>
+            <div class="option" data-value="8">5-7 new items</div>
+            <div class="option" data-value="6">3-5 new items</div>
+            <div class="option" data-value="4">Less than 3 new items</div>
+            <div class="option" data-value="2">Secondhand items</div>
+          </div>
+          <button type="submit" class="next-btn">Next</button>
+        </form>
+      </section>
+
+      <div class="ho">
+        <img src="../images/house.png">
+      </div>
+  </main>
+  <!-- <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer> -->
+
+  <script>
+    const options = document.getElementsByClassName('option');
+
+    for (const option of options) {
+      option.addEventListener('click', function () {
+        selectOption(option);
+      });
+    }
+
+    document.getElementById('household-purchases-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selectedOption = document.querySelector('.option.selected');
+      
+      if (selectedOption === null) {
+        alert('Please select the number of household purchases.');
+      } else {
+        const selectedValue = selectedOption.getAttribute('data-value');
+        localStorage.setItem('householdPurchases', selectedValue);
+        window.location.href = 'waste_production.html';
+      }
+    });
+
+    function selectOption(selectedOption) {
+      const value = selectedOption.getAttribute('data-value');
+      localStorage.setItem('householdPurchases', value);
+      highlightSelectedOption(selectedOption);
+    }
+
+    function highlightSelectedOption(selectedOption) {
+      for (const option of options) {
+        option.classList.remove('selected');
+      }
+      selectedOption.classList.add('selected');
+    }
+
+    // On page load, check if a selection was made and highlight it
+    window.addEventListener('DOMContentLoaded', function () {
+      const selectedValue = localStorage.getItem('householdPurchases');
+      if (selectedValue) {
+        options.forEach(option => {
+          if (option.getAttribute('data-value') === selectedValue) {
+            option.classList.add('selected');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number of Household Purchases - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <center>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+</center>
+  <main>
+    <center>
+    <section class="calculator">
+      <h2>Number of Household Purchases</h2>
+      <form id="household-purchases-form">
+        <label for="household-purchases">Select the number of household purchases per year:</label><br><br>
+        <select id="household-purchases" required>
+          <option value="10">More than 7 new items</option>
+          <option value="8">5-7 new items</option>
+          <option value="6">3-5 new items</option>
+          <option value="4">Less than 3 new items</option>
+          <option value="2">Secondhand items</option>
+        </select>
+        <button type="submit" class="next-btn">Next</button>
+      </form></center>
+
+      <center><div class="ho">
+        <img src="house.png" width="50%">
+      </div></center>
+    </section>
+  </main>
+
+  <script >
+    document.getElementById('household-purchases-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const selectedValue = parseInt(document.getElementById('household-purchases').value, 10);
+  localStorage.setItem('householdPurchases', selectedValue);
+  window.location.href = 'waste_production.html';
+});
+  </script>
+</body>
+</html> -->

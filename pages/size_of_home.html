@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Size of the Home - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #007bff; /* Blue color for header and footer */
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+
+    header{
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .calculator {
+      width: 400px;
+      margin: 0 auto;
+      margin-bottom: 100;
+      height: fit-content;
+      margin-right: -40%;
+      width: 90%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #options-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f5f5f5; /* Set the background color for all options */
+      color: #000; /* Set the text color for all options */
+    }
+
+    .option:hover {
+      background-color: #e0e0e0; /* Change the background color on hover */
+    }
+
+    .option.selected {
+      background-color: #007bff; /* Blue color for selected option */
+      color: #fff; /* White text for selected option */
+    }
+
+    .next-btn {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .hom {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <header>
+      <h1>Carbon Footprint Calculator</h1>
+    </header>
+  </center>
+  <main>
+      <section class="calculator">
+        <h2>Size of the Home</h2>
+        <form id="size-of-home-form">
+          <label for="home-size">Select the size of your home:</label>
+          <div id="options-container">
+            <div class="option" data-value="10">Large house</div>
+            <div class="option" data-value="7">Medium-sized house</div>
+            <div class="option" data-value="4">Small house</div>
+            <div class="option" data-value="2">Apartment</div>
+          </div>
+          <button type="submit" class="next-btn">Next</button>
+        </form>
+      </section>
+      <div class="hom">
+        <img src="../images/home.png">
+      </div>
+  </main>
+  
+  <!-- <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer> -->
+  
+  <script>
+    const options = document.querySelectorAll('.option');
+    const nextButton = document.querySelector('.next-btn');
+
+    options.forEach(option => {
+      option.addEventListener('click', function () {
+        toggleOption(option);
+      });
+    });
+
+    document.getElementById('size-of-home-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selectedOption = document.querySelector('.option.selected');
+      
+      if (selectedOption === null) {
+        alert('Please select the size of your home before proceeding.');
+      } else {
+        const selectedValue = selectedOption.getAttribute('data-value');
+        localStorage.setItem('homeSize', selectedValue);
+        window.location.href = 'food_choices.html';
+      }
+    });
+
+    function toggleOption(option) {
+      options.forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+    }
+  </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Members - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="styles.css"> 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #007bff; /* Blue color for header and footer */
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+    header{
+      margin: 0 auto;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .calculator {
+      max-width: 400px;
+      margin: 0 auto;
+      height: fit-content;
+      margin-bottom: 100px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #options-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f5f5f5; /* Set the background color for all options */
+      color: #000; /* Set the text color for all options */
+    }
+
+    .option:hover {
+      background-color: #e0e0e0; /* Change the background color on hover */
+    }
+
+    .option.selected {
+      background-color: #007bff; /* Blue color for selected option */
+      color: #fff; /* White text for selected option */
+    }
+
+    .next-btn {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+  <main>
+    <section class="calculator">
+      <h2>Number of Family Members</h2>
+      <form id="family-members-form">
+        <label for="family-members">Select the number of family members:</label>
+        <div id="options-container">
+          <div class="option" data-value="14">1 person</div>
+          <div class="option" data-value="12">2 people</div>
+          <div class="option combined-option" data-value="10">3 people or 4 people</div>
+          <div class="option" data-value="6">5 people</div>
+          <div class="option" data-value="4">More than 5 people</div>
+        </div>
+        <button type="submit" class="next-btn">Next</button>
+      </form>
+    </section>
+    <center><div class="hom">
+      <img src="home.png" width="80%">
+    </div></center>
+  </main>
+  <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer>
+  <script>
+    const options = document.getElementsByClassName('option');
+
+    for (const option of options) {
+      option.addEventListener('click', function () {
+        selectOption(option);
+      });
+    }
+
+    document.getElementById('family-members-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selectedValue = parseInt(localStorage.getItem('familyMembers'), 10);
+      if (selectedValue) {
+        window.location.href = 'size_of_home.html';
+      } else {
+        alert('Please select the number of family members.');
+      }
+    });
+
+    function selectOption(selectedOption) {
+      const value = selectedOption.getAttribute('data-value');
+      localStorage.setItem('familyMembers', value);
+      highlightSelectedOption(selectedOption);
+    }
+
+    function highlightSelectedOption(selectedOption) {
+      for (const option of options) {
+        option.classList.remove('selected');
+      }
+      selectedOption.classList.add('selected');
+    }
+  </script>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Size of the Home - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <center>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+</center>
+  <main>
+    <center><section class="calculator">
+      <h2>Size of the Home</h2>
+      <form id="size-of-home-form">
+        <label for="home-size">Select the size of your home:</label><br><br>
+        <select id="home-size" required>
+          <option value="10">Large house</option>
+          <option value="7">Medium-sized house</option>
+          <option value="4">Small house</option>
+          <option value="2">Apartment</option>
+        </select>
+        <button type="submit" class="next-btn">Next</button>
+      </form></center>
+    
+    <center><div class="hom">
+      <img src="home.png" width="80%">
+    </div></center>
+  </section>
+  
+  </main>
+  <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer>
+  <script >
+    document.getElementById('size-of-home-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const selectedValue = parseInt(document.getElementById('home-size').value, 10);
+  localStorage.setItem('homeSize', selectedValue);
+  window.location.href = 'food_choices.html';
+});
+  </script>
+</body>
+</html> -->

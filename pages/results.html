@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Global styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #007bff;
+      color: #FFF;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header{
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    /* Main styles */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      height: fit-content;
+    }
+
+    /* Calculator styles */
+    .calculator {
+      background-color: #FFF;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 100px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    span {
+      font-weight: bold;
+      color: #009688;
+    }
+
+    /* Pie chart styles */
+    .chart-container {
+      text-align: center;
+      margin: 20px 0;
+      max-width: 400px; /* Limit the width of the chart container */
+      margin: 0 auto; /* Center the chart container */
+      margin-top: 100px;
+    }
+
+    /* Impact message styles */
+    #impact-message {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 30px;
+      padding: 10px 20px; /* Padding inside the box */
+      border-radius: 8px; /* Rounded corners for the box */
+    }
+
+    /* If the total points are above 60, display the impact message in a red box */
+    .above-60 #impact-message {
+      color: #FFF; /* Text color inside the box */
+      background-color: rgb(220, 47, 47); /* Red background color for the box */
+    }
+
+    /* If the total points are 60 or below, display the impact message in a green box */
+    .below-60 #impact-message {
+      color: #FFF; /* Text color inside the box */
+      background-color: green; /* Green background color for the box */
+    }
+
+    /* Suggestions styles */
+    .suggestions {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .suggestions h3 {
+      margin-bottom: 10px;
+      color: #009688;
+    }
+
+    .suggestions ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .suggestions li {
+      margin: 10px 0;
+    }
+
+    /* Share buttons styles */
+    .share {
+      text-align: center;
+    }
+
+    .share h3 {
+      margin-bottom: 10px;
+      color: #009688;
+    }
+
+    .share-btn {
+      display: inline-block;
+      background-color: #009688;
+      color: #FFF;
+      padding: 8px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    /* Footer styles */
+    footer {
+      background-color: #007bff;
+      color: #FFF;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+  <main>
+    <section class="calculator">
+      <h2>Results</h2>
+      <div class="output-box" id="impact-message"></div>
+      <p>Your total carbon footprint points: <span id="total-points"></span></p>
+      <div class="chart-container">
+        <canvas id="carbon-pie-chart" width="300" height="300"></canvas> <!-- Set width and height for the pie chart -->
+      </div>
+      <div class="suggestions">
+        <h3>What you can do:</h3>
+        <ul>
+          <li>Reduce energy consumption at home.</li>
+          <li>Choose sustainable transportation options.</li>
+          <li>Eat more plant-based meals.</li>
+          <li>Minimize waste and recycle whenever possible.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <!-- <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer> -->
+
+
+  <script>
+    function generatePieChart(labels, data, colors) {
+      const ctx = document.getElementById('carbon-pie-chart').getContext('2d');
+      const chartData = {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: colors,
+        }],
+      };
+      const options = {
+        responsive: true,
+        legend: {
+          display: true,
+          position: 'right',
+        },
+      };
+      new Chart(ctx, {
+        type: 'pie',
+        data: chartData,
+        options: options,
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const familyMembersPoints = parseInt(localStorage.getItem('familyMembers'));
+      const homeSizePoints = parseInt(localStorage.getItem('homeSize'));
+      const foodChoicesPoints = parseInt(localStorage.getItem('foodChoices'));
+      const waterConsumptionPoints = parseInt(localStorage.getItem('waterConsumption'));
+      const householdPurchasesPoints = parseInt(localStorage.getItem('householdPurchases'));
+      const wasteProductionPoints = parseInt(localStorage.getItem('wasteProduction'));
+      const wasteRecyclingPoints = parseInt(localStorage.getItem('recyclingPoints'));
+      const transportationPoints = parseInt(localStorage.getItem('transportation'));
+
+      const totalPoints =
+        familyMembersPoints +
+        homeSizePoints +
+        foodChoicesPoints +
+        waterConsumptionPoints +
+        householdPurchasesPoints +
+        wasteProductionPoints +
+        wasteRecyclingPoints +
+        transportationPoints;
+
+      const impactMessage = totalPoints > 60
+        ? "Your impact on the planet is significant. Consider taking actions to reduce your carbon emissions and contribute to a more sustainable future."
+        : "Your impact on the planet is relatively small. Keep up the good work, and continue making environmentally conscious choices!";
+
+      document.getElementById('total-points').innerText = totalPoints + " points";
+      document.getElementById('impact-message').innerText = impactMessage;
+
+      // Add classes to body based on total points
+      document.body.classList.add(totalPoints > 60 ? 'above-60' : 'below-60');
+
+      generatePieChart(
+        ['Family Members', 'Home Size', 'Food Choices', 'Water Consumption', 'Household Purchases', 'Waste Production', 'Waste Recycling', 'Transportation'],
+        [familyMembersPoints, homeSizePoints, foodChoicesPoints, waterConsumptionPoints, householdPurchasesPoints, wasteProductionPoints, wasteRecyclingPoints, transportationPoints],
+        ['#ff6384', '#36a2eb', '#ffce56', '#8bc34a', '#9c27b0', '#ff5722', '#607d8b', '#3f51b5']
+      );
+    });
+  </script>
+</body>
+</html>

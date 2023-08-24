@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint Chart - Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <center><header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+</center>
+  <main><center>
+    <section class="chart">
+      <h2>Carbon Footprint Breakdown</h2>
+      <div class="chart-container">
+        <canvas id="carbon-pie-chart"></canvas>
+      </div>
+    </section></center>
+  </main>
+  <!-- <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const labels = ['Family Members', 'Home Size', 'Food Choices', 'Water Consumption', 'Household Purchases', 'Waste Production', 'Waste Recycling', 'Transportation'];
+    const data = [
+      parseInt(localStorage.getItem('familyMembers')),
+      parseInt(localStorage.getItem('homeSize')),
+      parseInt(localStorage.getItem('foodChoices')),
+      parseInt(localStorage.getItem('waterConsumption')),
+      parseInt(localStorage.getItem('householdPurchases')),
+      parseInt(localStorage.getItem('wasteProduction')),
+      parseInt(localStorage.getItem('wasteRecycling')),
+      parseInt(localStorage.getItem('transportation')),
+    ];
+    const colors = ['#ff6384', '#36a2eb', '#ffce56', '#8bc34a', '#9c27b0', '#ff5722', '#607d8b', '#3f51b5'];
+
+    const ctx = document.getElementById('carbon-pie-chart').getContext('2d');
+    const chartData = {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: colors,
+      }],
+    };
+    const options = {
+      responsive: true,
+      legend: {
+        display: true,
+        position: 'right',
+      },
+    };
+    new Chart(ctx, {
+      type: 'pie',
+      data: chartData,
+      options: options,
+    });
+  </script>
+</body>
+</html>
